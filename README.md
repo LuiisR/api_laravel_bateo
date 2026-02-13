@@ -81,49 +81,6 @@ http://localhost:8000/api
 
 ---
 
-## 🔐 Autenticación
-
-La API utiliza autenticación mediante **tokens (Laravel Sanctum)**.
-
-### Registro de usuario
-
-```
-POST /api/register
-```
-
-**Body:**
-```json
-{
-  "name": "Usuario",
-  "email": "usuario@email.com",
-  "password": "password",
-  "password_confirmation": "password"
-}
-```
-
----
-
-### Login
-
-```
-POST /api/login
-```
-
-**Respuesta:**
-```json
-{
-  "token": "TOKEN_GENERADO"
-}
-```
-
-Usar el token en las peticiones protegidas:
-
-```
-Authorization: Bearer TOKEN_GENERADO
-```
-
----
-
 ## 📚 Endpoints principales
 
 ---
@@ -220,22 +177,12 @@ Relación:
 
 ---
 
-## 🧪 Tests
-
-Ejecutar los tests:
-
-```bash
-php artisan test
-```
-
----
-
 ## 👨‍💻 Autor
 
 Proyecto desarrollado por:
 
-**Tu Nombre**  
-GitHub: https://github.com/TU_USUARIO
+**Luis Rodriguez**  
+GitHub: https://github.com/LuiisR
 
 ---
 
