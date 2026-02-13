@@ -16,6 +16,8 @@ class ResultadoApiController extends Controller
         $maxPepitas = $tanda->resultados->max("pepitas_encontradas");
 
         //filtra los resiltados que tengan ese máximo
+        // $tanda->resultados() con parentesis es una query builder para poder seguir haciendo una consulta
+        // $tanda->resultados sin paréntesis es un objeto de la clase resultado
         $mejoresResultados = $tanda->resultados()->where("pepitas_encontradas", $maxPepitas)->with("participante")->get();
 
         return ParticipantePepitasResource::collection($mejoresResultados);
@@ -25,8 +27,9 @@ class ResultadoApiController extends Controller
 
         $resultados = $tanda->resultados()
             ->with("participante", "penalizaciones")
-            ->get()
-            ->map(function ($resultado) use ($tanda) {
+            ->get();
+
+            foreach ($resultados as $resultado) {
 
             // penalizacion por pepitas no encontradas
                 $pepitasNoEncontradas = $tanda->numero_pepitas - $resultado->pepitas_encontradas;
@@ -43,12 +46,11 @@ class ResultadoApiController extends Controller
                 $resultado->tiempo_final = $tiempoFinal;
                 $resultado->tiempo_penalizacion_pepitas = $tiempoPenalizacionPepitas;
                 $resultado->tiempo_penalizaciones = $tiempoPenalizaciones;
+            };
 
-                return $resultado;
-
-            })->sortBy("tiempo_final")->values();
+            // ordenar los resultados segun su tiempo final
+            $resultados = $resultados->sortBy("tiempo_final")->values();
 
             return ClasificacionResource::collection($resultados);
-
     }
 }
