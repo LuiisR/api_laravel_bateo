@@ -144,6 +144,42 @@ GET /api/clasificacion/1/mejores
 }
 ```
 
+## Clasificación completa de una tanda
+
+```
+GET /api/clasificacion/{tanda}
+```
+
+Devuelve la clasificación completa de los participantes ordenada por tiempo final.
+
+El tiempo final se calcula como:
+
+tiempo final =
+tiempo resultado +
+penalización por pepitas no encontradas +
+tiempo de penalizaciones
+
+**Ejemplo:**
+```
+GET /api/clasificacion/1/mejores
+```
+
+**Respuesta:**
+```json
+{
+  "data": [
+    {
+      "participante": "Juan Pérez",
+      "tiempo_final": 264.000,
+      "tiempo_resultado": 129.000,
+      "pepitas_encontradas": 6,
+      "tiempo_penalizacion_pepitas": 120.000,
+      "tiempo_penalizaciones": 15.000
+    }
+  ]
+}
+```
+
 ---
 
 ## 🗄️ Estructura de datos
