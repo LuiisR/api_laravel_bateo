@@ -1,59 +1,244 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🥇 API Mundial de Bateo – Navelgas
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+API REST desarrollada en **Laravel** para gestionar una competición del mundial de bateo de Navelgas.  
+Permite administrar participantes, tandas, resultados y penalizaciones, además de consultar clasificaciones.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📌 Tecnologías utilizadas
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- PHP 8+
+- Laravel
+- Laravel Breeze (API tokens)
+- MySQL
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## ⚙️ Instalación del proyecto
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### 1. Clonar el repositorio
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+git clone https://github.com/TU_USUARIO/laravel_bateo_TUNOMBRE.git
+cd laravel_bateo_TUNOMBRE
+```
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 2. Instalar dependencias
 
-### Premium Partners
+```bash
+composer install
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
+### 3. Configurar entorno
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Copiar el archivo `.env`:
 
-## Code of Conduct
+```bash
+cp .env.example .env
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Editar los datos de la base de datos:
 
-## Security Vulnerabilities
+```env
+DB_DATABASE=dwes_laravel_bateo
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+### 4. Generar clave de aplicación
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+php artisan key:generate
+```
+
+---
+
+### 5. Ejecutar migraciones y seeders
+
+```bash
+php artisan migrate --seed
+```
+
+---
+
+### 6. Iniciar el servidor
+
+```bash
+php artisan serve
+```
+
+La API estará disponible en:
+
+```
+http://localhost:8000/api
+```
+
+---
+
+## 🔐 Autenticación
+
+La API utiliza autenticación mediante **tokens (Laravel Sanctum)**.
+
+### Registro de usuario
+
+```
+POST /api/register
+```
+
+**Body:**
+```json
+{
+  "name": "Usuario",
+  "email": "usuario@email.com",
+  "password": "password",
+  "password_confirmation": "password"
+}
+```
+
+---
+
+### Login
+
+```
+POST /api/login
+```
+
+**Respuesta:**
+```json
+{
+  "token": "TOKEN_GENERADO"
+}
+```
+
+Usar el token en las peticiones protegidas:
+
+```
+Authorization: Bearer TOKEN_GENERADO
+```
+
+---
+
+## 📚 Endpoints principales
+
+---
+
+### Obtener penalizaciones
+
+```
+GET /api/penalizaciones
+```
+
+Devuelve todas las penalizaciones con los participantes afectados.
+
+**Respuesta:**
+```json
+{
+  "data": [
+    {
+      "nombre": "Fuera de zona",
+      "tiempo": 10.500,
+      "participantes": [
+        {
+          "id": 1,
+          "nombre": "Juan",
+          "apellidos": "Pérez",
+          "slug": "juan-perez"
+        }
+      ]
+    }
+  ]
+}
+```
+
+---
+
+### Clasificación – Mejores de una tanda
+
+```
+GET /api/clasificacion/{tanda}/mejores
+```
+
+Devuelve los participantes que han encontrado el **máximo número de pepitas** en una tanda.
+
+**Ejemplo:**
+```
+GET /api/clasificacion/1/mejores
+```
+
+**Respuesta:**
+```json
+{
+  "data": [
+    {
+      "participante": "Juan Pérez",
+      "pepitas_encontradas": 12
+    },
+    {
+      "participante": "Ana Gómez",
+      "pepitas_encontradas": 12
+    }
+  ]
+}
+```
+
+---
+
+## 🗄️ Estructura de datos
+
+### Participante
+- id
+- nombre
+- apellidos
+- slug (único)
+
+### Tanda
+- id
+- competidores (por defecto 30)
+- penalizacion_pepita_no_encontrada
+- numero_pepitas
+
+### Penalización
+- id
+- nombre
+- tiempo
+
+### Resultado
+- id
+- tanda_id
+- participante_id
+- tiempo
+- pepitas_encontradas
+
+Relación:
+- Resultado ↔ Penalización → many-to-many
+
+---
+
+## 🧪 Tests
+
+Ejecutar los tests:
+
+```bash
+php artisan test
+```
+
+---
+
+## 👨‍💻 Autor
+
+Proyecto desarrollado por:
+
+**Tu Nombre**  
+GitHub: https://github.com/TU_USUARIO
+
+---
+
+## 📄 Licencia
+
+Proyecto educativo sin fines comerciales.
