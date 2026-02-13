@@ -11,3 +11,4 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 Route::get("penalizaciones", [PenalizacionApiController::class, "index"]);
 Route::get("clasificacion/{tanda}/mejores", [ResultadoApiController::class, "mejores"]);
+Route::get("clasificacion/{tanda}", [ResultadoApiController::class, "clasificacion"]);
