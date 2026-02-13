@@ -12,4 +12,9 @@ class Participante extends Model
     public function resultados() {
         return $this->hasMany(Resultado::class);
     }
+
+    public function getRouteKeyName()
+    {
+        return "slug";
+    }
 }

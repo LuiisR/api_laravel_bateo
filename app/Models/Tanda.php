@@ -12,4 +12,5 @@ class Tanda extends Model
     public function resultados(){
         return $this->hasMany(Resultado::class);
     }
+
 }

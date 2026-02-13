@@ -17,8 +17,8 @@ class PenalizacionResource extends JsonResource
         return [
             "nombre" => $this->nombre,
             "tiempo" => $this->tiempo,
-            //"participantes" => ResultadoResource::collection($this->resultados)
-            "participantes" => ParticipanteResource::collection($this->participantesList()),
+            "participantes" => ResultadoResource::collection($this->resultados)
+            //"participantes" => ParticipanteResource::collection($this->participantesList()),
         ];
     }
 }
