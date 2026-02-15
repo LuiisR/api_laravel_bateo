@@ -8,6 +8,11 @@ class Tanda extends Model
 {
     protected $table = "tandas";
     public $timestamps = false;
+    protected $fillable = [
+    'competidores',
+    'penalizacion_pepita_no_encontrada',
+    "numero_pepitas"
+];
 
     public function resultados(){
         return $this->hasMany(Resultado::class);

@@ -8,6 +8,12 @@ class Resultado extends Model
 {
     protected $table = "resultados";
     public $timestamps = false;
+    protected $fillable = [
+    'tanda_id',
+    'participante_id',
+    'tiempo',
+    'pepitas_encontradas',
+];
 
     public function participante()
 {
