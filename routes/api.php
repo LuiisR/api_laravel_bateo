@@ -14,3 +14,4 @@ Route::get("penalizaciones", [PenalizacionApiController::class, "index"]);
 Route::get("clasificacion/{tanda}/mejores", [ResultadoApiController::class, "mejores"]);
 Route::get("clasificacion/{tanda}", [ResultadoApiController::class, "clasificacion"]);
 Route::post("tanda", [TandaApiController::class, "store"]);
+Route::put("penalizar", [PenalizacionApiController::class, "penalizar"]);
