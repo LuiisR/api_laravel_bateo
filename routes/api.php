@@ -15,3 +15,4 @@ Route::get("clasificacion/{tanda}/mejores", [ResultadoApiController::class, "mej
 Route::get("clasificacion/{tanda}", [ResultadoApiController::class, "clasificacion"]);
 Route::post("tanda", [TandaApiController::class, "store"]);
 Route::put("penalizar", [PenalizacionApiController::class, "penalizar"]);
+Route::delete("tanda/{tanda}", [TandaApiController::class, "borraResultados"]);

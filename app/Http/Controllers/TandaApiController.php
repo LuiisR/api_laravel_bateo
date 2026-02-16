@@ -39,4 +39,15 @@ class TandaApiController extends Controller
         ]);
 
     }
+
+    public function borraResultados(Tanda $tanda){
+
+        // borra todos los resultados de la tanda
+        $tanda->resultados()->delete();
+
+        return response()->json([
+            "mensaje" => "Resultados borrados"
+        ]);
+
+    }
 }
