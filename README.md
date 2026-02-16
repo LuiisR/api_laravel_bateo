@@ -180,6 +180,81 @@ GET /api/clasificacion/1/mejores
 }
 ```
 
+### Crear una nueva tanda
+
+```
+POST /api/tanda
+```
+
+Crea una nueva tanda con participantes y genera resultados aleatorios para cada participante.
+
+**BODY:**
+```json
+{
+  "numero_pepitas": 10,
+  "penalizacion_pepita_no_encontrada": 5,
+  "participantes": [1, 2, 3, 4]
+}
+```
+**Respuesta:**
+```json
+{
+  "mensaje": "Tanda 1 creada correctamente"
+}
+
+```
+
+### Añadir una penalización a un participante
+
+```
+PUT /api/penalizar
+```
+
+Añade una penalización a un participante en una tanda concreta.
+
+**BODY:**
+```json
+{
+  "tanda_id": 1,
+  "participante_id": 2,
+  "penalizacion_id": 3
+}
+```
+**Respuestas posibles:**
+* Si todo va bien:
+```json
+{
+  "mensaje": "Penalización añadida"
+}
+```
+
+* Si el participante no tiene resultado en la tanda:
+```json
+{
+  "mensaje": "No hay ningún resultado para la tanda indicada"
+}
+
+```
+
+### Borrar resultados de una tanda
+
+```
+DELETE /api/tanda/{tanda}
+```
+
+Borra todos los resultados de la tanda indicada por su ID en la URL.
+
+**Ejemplo:**
+```
+DELETE /api/tanda/1
+```
+
+**Respuesta:**
+```json
+{
+  "mensaje": "Resultados borrados"
+}
+```
 ---
 
 ## 🗄️ Estructura de datos
